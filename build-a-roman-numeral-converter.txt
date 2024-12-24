@@ -1,0 +1,227 @@
+** start of undefined **
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="styles.css">
+    <title>Roman Numeral Converter</title>
+  </head>
+  <body>
+    <main class="container">
+       <img class="freecodecamp-logo" src="https://cdn.freecodecamp.org/platform/universal/fcc_primary.svg" alt="freeCodeCamp Logo">
+       <h1>roman numeral <br> converter</h1>
+       <form class="form" id="form">
+         <fieldset>
+           <label for"number">Enter a Number:</label>
+         <input type="number" id="number"  />
+         <button class="btn" id="convert-btn">Convert</button>
+         </fieldset>
+       </form>
+       <div class="output hidden" id="output"></div>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
+
+** end of undefined **
+
+** start of undefined **
+
+const form = document.getElementById('form');
+const numberInput = document.getElementById('number');
+const convertButton = document.getElementById('convert-btn');
+const outputValue = document.getElementById('output');
+
+const romanAndArabicNum = (num) => {
+  const ref = [
+   ['M', 1000],
+   ['CM', 900],
+   ['D', 500],
+   ['CD', 400],
+   ['C', 100],
+   ['XC', 90],
+   ['L', 50],
+   ['XL', 40],
+   ['X', 10],
+   ['IX', 9],
+   ['V', 5],
+   ['IV', 4],
+   ['I', 1]
+];
+  const res = [];
+  ref.forEach((arr) => {
+    while(num >= arr[1]) {
+       res.push(arr[0]);
+       num -= arr[1]
+    }
+  })
+
+  return res.join('')
+}    
+
+const checkInput = (str, int) => {
+    if(str === '' || str.match(/[e.]/g)) {
+      outputValue.innerText = "Please enter a valid number";
+
+      outputValue.classList.add('alert');
+
+    } else if(int < 1) {
+      outputValue.innerText = "Please enter a number greater than or equal to 1";
+
+      outputValue.classList.add('alert');
+    } else if (int >= 4000 ) {
+       outputValue.innerText = "Please enter a number less than or equal to 3999";
+   
+      outputValue.classList.add('alert');
+    } else {
+       return true;
+    }
+
+    
+
+    return false;
+}
+
+const clearOutput = () => {
+   outputValue.innerText = '';
+   outputValue.classList.remove('alert');
+}
+
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  updateUI()
+});
+
+convertButton.addEventListener('click', () => {
+   updateUI()
+});
+
+const updateUI = () => {
+   const str = numberInput.value;
+   const int = parseInt(numberInput.value);
+
+    outputValue.classList.remove('hidden')
+    clearOutput();
+    
+    if(checkInput(str, int)) {
+       outputValue.innerText = romanAndArabicNum(int);
+    }
+}
+
+** end of undefined **
+
+** start of undefined **
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  padding: 50px 20px;
+  font-family: 'Lato', Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  background-color: #1b1b32;
+  color: #f5f6f7; 
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.freecodecamp-logo {
+  height: 35px;
+  margin-bottom: 15px;
+}
+
+h1 {
+  text-transform: uppercase;
+  text-align: center;
+  margin: 20px auto;
+  font-family: 'Castoro Titling', cursive;
+}
+
+.form {
+  padding:15px auto;
+  border: 4px solid #f5f6f7;
+  background-color: #3b3b4f;
+  width: 90%;
+  max-width: 500px;
+  margin: auto 25px;
+  text-align: center;
+}
+
+fieldset {
+  border: none;
+  height: 100%;
+  padding: 25px;
+  margin: 10px 20px
+}
+
+label {
+  display: inline-block;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+input{
+  display: block;
+  width: 100%;
+  background-color: #1b1b32;
+  border: 3px solid #ffffff;
+  height: 60px;
+  padding: 6px 12px;
+  color: white;
+  margin: 10px 0;
+  line-height: 1.4;
+  font-size: 2.5rem;
+}
+
+.btn {
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: none;
+  width: 100%;
+  padding: 10px 16px;;
+  color: #000000;
+  background-image: linear-gradient(#fecc4c, #ffac33);
+  margin-top: 15px;
+  border: 5px solid #feac32;
+  font-size: 23px;
+}
+
+.output {
+  margin-top: 25px;
+  padding:15px;
+  border: 4px solid #f5f6f7;
+  background-color: #3b3b4f;
+  width: 90%;
+  max-width: 500px;
+  min-height: 55px;
+  text-align: center;
+  font-size: 2.5rem;
+  overflow-wrap: break-word;
+  color: #ffffff;
+}
+.alert {
+  font-size: 2rem;
+  border: 4px solid #a94442;
+  background-color: #ffadad;
+  color: #850000;
+}
+
+.hidden {
+  display: none;
+}
+
+** end of undefined **
+
